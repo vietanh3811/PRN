@@ -1,9 +1,0 @@
-C:\PRN212\FlowerStore\obj\Debug\net8.0-windows\MainWindow.baml
-C:\PRN212\FlowerStore\obj\Debug\net8.0-windows\MainWindow.g.cs
-C:\PRN212\FlowerStore\obj\Debug\net8.0-windows\App.g.cs
-C:\PRN212\FlowerStore\obj\Debug\net8.0-windows\FlowerStore_MarkupCompile.cache
-C:\PRN212\FlowerStore\obj\Debug\net8.0-windows\FlowerStore.g.resources
-C:\PRN212\FlowerStore\obj\Debug\net8.0-windows\FlowerStore.GeneratedMSBuildEditorConfig.editorconfig
-C:\PRN212\FlowerStore\obj\Debug\net8.0-windows\FlowerStore.AssemblyInfoInputs.cache
-C:\PRN212\FlowerStore\obj\Debug\net8.0-windows\FlowerStore.AssemblyInfo.cs
-C:\PRN212\FlowerStore\obj\Debug\net8.0-windows\FlowerStore.csproj.CoreCompileInputs.cache

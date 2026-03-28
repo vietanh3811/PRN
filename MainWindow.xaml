@@ -1,20 +1,200 @@
 ﻿<Window x:Class="FlowerStore.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Flower Store" Height="450" Width="800">
-    <Grid>
+        Title="Quản Lý Cửa Hàng Hoa Tươi"
+        Height="760"
+        Width="1280"
+        MinHeight="700"
+        MinWidth="1100">
+    <Grid Background="#F8F4EE">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="380"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Background="#EEE">
-            <Button Content="Show Flowers" Click="ShowFlowers_Click" Margin="5"/>
-            <Button Content="Add Flower" Click="AddFlower_Click" Margin="5"/>
-            <Button Content="Create Order" Click="CreateOrder_Click" Margin="5"/>
-            <Button Content="Show Orders" Click="ShowOrders_Click" Margin="5"/>
-        </StackPanel>
-        <Grid Grid.Column="1">
-            <DataGrid x:Name="dataGrid" AutoGenerateColumns="True"/>
-        </Grid>
+
+        <Border Grid.Column="0"
+                Margin="14"
+                Padding="16"
+                Background="#FFFDF9"
+                BorderBrush="#E0D6C8"
+                BorderThickness="1"
+                CornerRadius="10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Flower Store Manager"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="#5A3825"/>
+                    <TextBlock Margin="0,6,0,16"
+                               Text="Quản lý hoa, đơn hàng và thống kê doanh thu."
+                               Foreground="#7A5A46"
+                               TextWrapping="Wrap"/>
+
+                    <GroupBox Header="Danh sách dữ liệu" Margin="0,0,0,14">
+                        <StackPanel Margin="10">
+                            <Button Content="Xem danh sách hoa" Click="ShowFlowers_Click" Margin="0,0,0,8" Height="34"/>
+                            <Button Content="Xem danh sách đơn hàng" Click="ShowOrders_Click" Margin="0,0,0,8" Height="34"/>
+                            <Button Content="Làm mới tất cả" Click="RefreshData_Click" Height="34"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Thêm hoa mới" Margin="0,0,0,14">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Mã hoa"/>
+                            <TextBox x:Name="FlowerIdTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Tên hoa"/>
+                            <TextBox x:Name="FlowerNameTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Giá bán"/>
+                            <TextBox x:Name="FlowerPriceTextBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Tồn kho"/>
+                            <TextBox x:Name="FlowerQuantityTextBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,8"/>
+
+                            <Button Grid.Row="4"
+                                    Grid.ColumnSpan="2"
+                                    Height="34"
+                                    Content="Thêm hoa"
+                                    Click="AddFlower_Click"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Tạo đơn hàng" Margin="0,0,0,14">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Khách hàng"/>
+                            <ComboBox x:Name="CustomerComboBox"
+                                      Grid.Row="0"
+                                      Grid.Column="1"
+                                      Margin="0,0,0,8"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Id"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Loại hoa"/>
+                            <ComboBox x:Name="OrderFlowerComboBox"
+                                      Grid.Row="1"
+                                      Grid.Column="1"
+                                      Margin="0,0,0,8"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Id"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Số lượng"/>
+                            <TextBox x:Name="OrderQuantityTextBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Ngày đặt"/>
+                            <DatePicker x:Name="OrderDatePicker" Grid.Row="3" Grid.Column="1" Margin="0,0,0,8"/>
+
+                            <Button Grid.Row="4"
+                                    Grid.ColumnSpan="2"
+                                    Height="34"
+                                    Content="Tạo đơn hàng"
+                                    Click="CreateOrder_Click"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Cập nhật ngày đơn hàng" Margin="0,0,0,14">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Đơn hàng"/>
+                            <ComboBox x:Name="OrderComboBox"
+                                      Grid.Row="0"
+                                      Grid.Column="1"
+                                      Margin="0,0,0,8"
+                                      DisplayMemberPath="DisplayName"
+                                      SelectedValuePath="Id"
+                                      SelectionChanged="OrderComboBox_SelectionChanged"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Ngày mới"/>
+                            <DatePicker x:Name="UpdateOrderDatePicker" Grid.Row="1" Grid.Column="1" Margin="0,0,0,8"/>
+
+                            <Button Grid.Row="2"
+                                    Grid.ColumnSpan="2"
+                                    Height="34"
+                                    Content="Cập nhật ngày đơn"
+                                    Click="UpdateOrderDate_Click"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Thống kê nhanh">
+                        <StackPanel Margin="10">
+                            <Button Content="Xem thống kê hoa bán chạy và doanh thu cao" Click="ShowStatistics_Click" Height="34" Margin="0,0,0,10"/>
+                            <TextBlock Text="Hoa bán nhiều nhất:" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="TopSellingFlowerTextBlock" Margin="0,2,0,10" Text="Chưa có dữ liệu." TextWrapping="Wrap"/>
+                            <TextBlock Text="Hoa kiếm nhiều tiền nhất:" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="HighestRevenueFlowerTextBlock" Margin="0,2,0,0" Text="Chưa có dữ liệu." TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Border Grid.Column="1"
+                Margin="0,14,14,14"
+                Padding="16"
+                Background="#FFFDF9"
+                BorderBrush="#E0D6C8"
+                BorderThickness="1"
+                CornerRadius="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="ViewTitleTextBlock"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="#5A3825"
+                           Text="Dữ liệu hiển thị"/>
+
+                <TextBlock x:Name="StatusTextBlock"
+                           Grid.Row="1"
+                           Margin="0,6,0,12"
+                           Foreground="#7A5A46"
+                           Text="Sẵn sàng."/>
+
+                <DataGrid x:Name="dataGrid"
+                          Grid.Row="2"
+                          AutoGenerateColumns="True"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>
