@@ -1,14 +1,26 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
-namespace FlowerStore
+namespace FlowerStore;
+
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    protected override void OnStartup(StartupEventArgs e)
     {
-    }
+        base.OnStartup(e);
+        ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
+        var loginWindow = new LoginWindow();
+        var loginResult = loginWindow.ShowDialog();
+
+        if (loginResult != true)
+        {
+            Shutdown();
+            return;
+        }
+
+        var mainWindow = new MainWindow();
+        MainWindow = mainWindow;
+        ShutdownMode = ShutdownMode.OnMainWindowClose;
+        mainWindow.Show();
+    }
 }

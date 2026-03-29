@@ -29,6 +29,12 @@ public sealed class FlowerStoreService
         _flowerRepository.Add(flower);
     }
 
+    public void AddCustomer(Customer customer)
+    {
+        ValidateCustomer(customer);
+        _customerRepository.Add(customer);
+    }
+
     public void CreateOrder(CreateOrderRequest request)
     {
         if (request.CustomerId <= 0)
@@ -78,6 +84,14 @@ public sealed class FlowerStoreService
         if (flower.Quantity < 0)
         {
             throw new InvalidOperationException("Số lượng tồn không được âm.");
+        }
+    }
+
+    private static void ValidateCustomer(Customer customer)
+    {
+        if (string.IsNullOrWhiteSpace(customer.Name))
+        {
+            throw new InvalidOperationException("Tên khách hàng không được để trống.");
         }
     }
 }

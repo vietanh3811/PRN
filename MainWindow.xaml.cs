@@ -40,6 +40,11 @@ public partial class MainWindow : Window
         ExecuteUiAction(LoadOrders);
     }
 
+    private void ShowCustomers_Click(object sender, RoutedEventArgs e)
+    {
+        ExecuteUiAction(LoadCustomers);
+    }
+
     private void RefreshData_Click(object sender, RoutedEventArgs e)
     {
         ExecuteUiAction(() =>
@@ -107,6 +112,23 @@ public partial class MainWindow : Window
         });
     }
 
+    private void AddCustomer_Click(object sender, RoutedEventArgs e)
+    {
+        ExecuteUiAction(() =>
+        {
+            var customer = new Customer
+            {
+                Name = CustomerNameTextBox.Text.Trim()
+            };
+
+            _service.AddCustomer(customer);
+            ClearAddCustomerInputs();
+            LoadReferenceData();
+            LoadCustomers();
+            SetStatus($"Đã thêm khách hàng {customer.Name}.");
+        });
+    }
+
     private void OrderComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
         if (OrderComboBox.SelectedItem is OrderSummary order)
@@ -160,6 +182,13 @@ public partial class MainWindow : Window
         ViewTitleTextBlock.Text = "Danh sách hoa";
         dataGrid.ItemsSource = _service.GetFlowers();
         SetStatus("Đang hiển thị danh sách hoa.");
+    }
+
+    private void LoadCustomers()
+    {
+        ViewTitleTextBlock.Text = "Danh sách khách hàng";
+        dataGrid.ItemsSource = _service.GetCustomers();
+        SetStatus("Đang hiển thị danh sách khách hàng.");
     }
 
     private void LoadOrders()
@@ -273,6 +302,11 @@ public partial class MainWindow : Window
         FlowerNameTextBox.Clear();
         FlowerPriceTextBox.Clear();
         FlowerQuantityTextBox.Clear();
+    }
+
+    private void ClearAddCustomerInputs()
+    {
+        CustomerNameTextBox.Clear();
     }
 
     private void ClearCreateOrderInputs()

@@ -33,6 +33,7 @@
                     <GroupBox Header="Danh sách dữ liệu" Margin="0,0,0,14">
                         <StackPanel Margin="10">
                             <Button Content="Xem danh sách hoa" Click="ShowFlowers_Click" Margin="0,0,0,8" Height="34"/>
+                            <Button Content="Xem danh sách khách hàng" Click="ShowCustomers_Click" Margin="0,0,0,8" Height="34"/>
                             <Button Content="Xem danh sách đơn hàng" Click="ShowOrders_Click" Margin="0,0,0,8" Height="34"/>
                             <Button Content="Làm mới tất cả" Click="RefreshData_Click" Height="34"/>
                         </StackPanel>
@@ -69,6 +70,28 @@
                                     Height="34"
                                     Content="Thêm hoa"
                                     Click="AddFlower_Click"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Thêm khách hàng mới" Margin="0,0,0,14">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Tên khách"/>
+                            <TextBox x:Name="CustomerNameTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,0,8"/>
+
+                            <Button Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Height="34"
+                                    Content="Thêm khách hàng"
+                                    Click="AddCustomer_Click"/>
                         </Grid>
                     </GroupBox>
 

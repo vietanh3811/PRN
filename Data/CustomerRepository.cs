@@ -36,4 +36,17 @@ public sealed class CustomerRepository
 
         return customers;
     }
+
+    public void Add(Customer customer)
+    {
+        const string sql = """
+                           INSERT INTO Customers (Name)
+                           VALUES (?)
+                           """;
+
+        using var connection = _connectionFactory.CreateOpenConnection();
+        using var command = new OdbcCommand(sql, connection);
+        command.Parameters.AddWithValue("@Name", customer.Name);
+        command.ExecuteNonQuery();
+    }
 }
