@@ -9,9 +9,8 @@ public sealed class FlowerStoreService
     private readonly CustomerRepository _customerRepository;
     private readonly OrderRepository _orderRepository;
 
-    public FlowerStoreService()
+    public FlowerStoreService(DbConnectionFactory connectionFactory)
     {
-        var connectionFactory = new DbConnectionFactory();
         _flowerRepository = new FlowerRepository(connectionFactory);
         _customerRepository = new CustomerRepository(connectionFactory);
         _orderRepository = new OrderRepository(connectionFactory);

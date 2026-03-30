@@ -7,10 +7,11 @@ namespace FlowerStore;
 
 public partial class MainWindow : Window
 {
-    private readonly FlowerStoreService _service = new();
+    private readonly FlowerStoreService _service;
 
-    public MainWindow()
+    public MainWindow(FlowerStoreService service)
     {
+        _service = service;
         InitializeComponent();
         Loaded += MainWindow_Loaded;
     }
