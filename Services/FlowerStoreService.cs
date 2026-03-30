@@ -28,6 +28,16 @@ public sealed class FlowerStoreService
         _flowerRepository.Add(flower);
     }
 
+    public void DeleteFlower(int flowerId)
+    {
+        if (flowerId <= 0)
+        {
+            throw new InvalidOperationException("Mã hoa phải lớn hơn 0.");
+        }
+
+        _flowerRepository.Delete(flowerId);
+    }
+
     public void AddCustomer(Customer customer)
     {
         ValidateCustomer(customer);

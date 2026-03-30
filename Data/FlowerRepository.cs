@@ -54,4 +54,54 @@ public sealed class FlowerRepository
         command.Parameters.AddWithValue("@Quantity", flower.Quantity);
         command.ExecuteNonQuery();
     }
+
+    public void Delete(int flowerId)
+    {
+        using var connection = _connectionFactory.CreateOpenConnection();
+
+        if (!Exists(connection, flowerId))
+        {
+            throw new InvalidOperationException("Không tìm thấy hoa cần xóa.");
+        }
+
+        if (HasOrderDetails(connection, flowerId))
+        {
+            throw new InvalidOperationException("Không thể xóa hoa đã tồn tại trong đơn hàng.");
+        }
+
+        const string sql = """
+                           DELETE FROM Flowers
+                           WHERE Id = ?
+                           """;
+
+        using var command = new OdbcCommand(sql, connection);
+        command.Parameters.AddWithValue("@Id", flowerId);
+        command.ExecuteNonQuery();
+    }
+
+    private static bool Exists(OdbcConnection connection, int flowerId)
+    {
+        const string sql = """
+                           SELECT COUNT(1)
+                           FROM Flowers
+                           WHERE Id = ?
+                           """;
+
+        using var command = new OdbcCommand(sql, connection);
+        command.Parameters.AddWithValue("@Id", flowerId);
+        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+    }
+
+    private static bool HasOrderDetails(OdbcConnection connection, int flowerId)
+    {
+        const string sql = """
+                           SELECT COUNT(1)
+                           FROM OrderDetails
+                           WHERE FlowerId = ?
+                           """;
+
+        using var command = new OdbcCommand(sql, connection);
+        command.Parameters.AddWithValue("@FlowerId", flowerId);
+        return Convert.ToInt32(command.ExecuteScalar()) > 0;
+    }
 }

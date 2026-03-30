@@ -73,6 +73,28 @@
                         </Grid>
                     </GroupBox>
 
+                    <GroupBox Header="Xóa hoa" Margin="0,0,0,14">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,8,8" VerticalAlignment="Center" Text="Mã hoa"/>
+                            <TextBox x:Name="DeleteFlowerIdTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,0,8"/>
+
+                            <Button Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Height="34"
+                                    Content="Xóa hoa"
+                                    Click="DeleteFlower_Click"/>
+                        </Grid>
+                    </GroupBox>
+
                     <GroupBox Header="Thêm khách hàng mới" Margin="0,0,0,14">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>

@@ -77,6 +77,21 @@ public partial class MainWindow : Window
         });
     }
 
+    private void DeleteFlower_Click(object sender, RoutedEventArgs e)
+    {
+        ExecuteUiAction(() =>
+        {
+            var flowerId = ParseInt(DeleteFlowerIdTextBox.Text, "Mã hoa cần xóa");
+
+            _service.DeleteFlower(flowerId);
+            ClearDeleteFlowerInputs();
+            LoadReferenceData();
+            LoadFlowers();
+            LoadStatistics();
+            SetStatus($"Đã xóa hoa có mã {flowerId}.");
+        });
+    }
+
     private void CreateOrder_Click(object sender, RoutedEventArgs e)
     {
         ExecuteUiAction(() =>
@@ -303,6 +318,11 @@ public partial class MainWindow : Window
         FlowerNameTextBox.Clear();
         FlowerPriceTextBox.Clear();
         FlowerQuantityTextBox.Clear();
+    }
+
+    private void ClearDeleteFlowerInputs()
+    {
+        DeleteFlowerIdTextBox.Clear();
     }
 
     private void ClearAddCustomerInputs()
